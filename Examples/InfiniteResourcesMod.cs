@@ -1,20 +1,17 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
-using PacosModLoader; // Required to access PacosModLoader.ModManagerPlugin
-using PacosModLoader.interfaces; // Required for the IModManagerMod interface
-using System.Collections.Generic;
-using UnityEngine;
+using PacosModLoader.interfaces;
 
-namespace InfiniteResourcesMod;
+namespace PacosModLoader.Examples;
 
-public class MyPluginInfo
+public class InfiniteResourcesModInfo
 {
     public const string PLUGIN_GUID = "InfiniteResourcesMod";
     public const string PLUGIN_NAME = "InfiniteResourcesMod";
     public const string PLUGIN_VERSION = "1.0";
 }
 
-[BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
+[BepInPlugin(InfiniteResourcesModInfo.PLUGIN_GUID, InfiniteResourcesModInfo.PLUGIN_NAME, InfiniteResourcesModInfo.PLUGIN_VERSION)]
 // This line declares a hard dependency on PacosModManager, ensuring it loads first.
 [BepInDependency("aaaPacosModManager", BepInDependency.DependencyFlags.HardDependency)]
 // Your plugin class must implement IModManagerMod to work with the Mod Manager.
@@ -24,8 +21,8 @@ public class InfiniteResourcesMod : BaseUnityPlugin, IModManagerMod
 
     // --- IModManagerMod REQUIRED PROPERTIES ---
     // These properties provide metadata about your mod to the Mod Manager.
-    public string ModName => MyPluginInfo.PLUGIN_NAME;
-    public string ModVersion => MyPluginInfo.PLUGIN_VERSION;
+    public string ModName => InfiniteResourcesModInfo.PLUGIN_NAME;
+    public string ModVersion => InfiniteResourcesModInfo.PLUGIN_VERSION;
     public string ModAuthor => "Paco";
     public string ModDescription => "Provides configurable amounts of coins and clovers in the game.";
     public bool IsActive { get; private set; } // Mod Manager controls this state.
@@ -77,9 +74,9 @@ public class InfiniteResourcesMod : BaseUnityPlugin, IModManagerMod
 
         // --- REGISTERING WITH PACOSMODMANAGER ---
         // Register your mod instance with the PacosModManager.
-        if (PacosModLoader.ModManagerPlugin.Instance != null)
+        if (ModManagerPlugin.Instance != null)
         {
-            PacosModLoader.ModManagerPlugin.Instance.RegisterMod(this);
+            ModManagerPlugin.Instance.RegisterMod(this);
         }
         else
         {
@@ -123,6 +120,6 @@ public class InfiniteResourcesMod : BaseUnityPlugin, IModManagerMod
     void OnDestroy()
     {
         // Unregister your mod when it's unloaded for clean shutdown.
-        PacosModLoader.ModManagerPlugin.Instance?.UnregisterMod(this);
+        ModManagerPlugin.Instance?.UnregisterMod(this);
     }
 }
