@@ -1,11 +1,10 @@
 # Pacos Mod Manager
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A mod for the game **Clover Pit (Demo)** using **BepInEx**.
+A plugin for the game **Clover Pit (Demo)** using **BepInEx**.
 
 The Pacos Mod Manager is a lightweight BepInEx plugin that helps you load and disable other mods, manage their configurations, and shows an in-game "MODDED" text when active.
 
-For now mods only update if you restart the game.
 
 ---
 
@@ -15,6 +14,16 @@ For now mods only update if you restart the game.
 2.  **Download Pacos Mod Manager:** Get `PacosModManager.dll` from the [Releases](https://github.com/Paco644/PacosModLoader/releases) section.
 3.  **Place the DLL:** Put `PacosModManager.dll` into your game's `BepInEx/plugins` folder.
 4.  **Run the Game:** Launch CloverPit once to generate the necessary config files.
+
+---
+
+## Disable / Configure Mods
+
+To disable mods go into the `PacosModManager.cfg` file at `BepInEx\config` and change the desired options. 
+To configure mods you have to find the specific `.cfg` file in the `BepInEx\config` folder of the mod and change the desired settings.
+
+
+For now mods only update / start if you restart the game.
 
 ---
 
