@@ -71,3 +71,10 @@ After running the game with your mod and the manager, find config files in `BepI
 
 ### Examples
 For a selection of examples please visit the [Examples](https://github.com/Paco644/PacosModLoader/tree/master/Examples)
+
+### Planned Features:
+* **In-game Mod Menu:** Disable, enable, and configure mods directly in-game, without needing a game restart.
+* **Mod Profiles / Loadouts:** Create and switch between different sets of enabled mods and their saved configurations.
+* **Mod Update Notifications & Management:** Get notified when updates are available for your installed mods, with potential for one-click updates (integrating with mod repositories).
+* **Enhanced In-Game Mod Details:** The in-game menu will display more information like mod author, full description, and version.
+* **Config Presets per Mod:** Save and load different configuration presets for individual mods.
