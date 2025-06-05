@@ -5,6 +5,8 @@ A mod for the game **Clover Pit (Demo)** using **BepInEx**.
 
 The Pacos Mod Manager is a lightweight BepInEx plugin that helps you load and disable other mods, manage their configurations, and shows an in-game "MODDED" text when active.
 
+For now mods only update if you restart the game.
+
 ---
 
 ## Installation
