@@ -28,14 +28,15 @@
   </ItemGroup>
   
   <ItemGroup>
+    <Folder Include="Lib\" />
+    <Folder Include="UI\" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\CloverPit.dll</HintPath>
+      <HintPath>Lib\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\CloverPit Demo\CloverPit_Data\Managed\Unity.TextMeshPro.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\CloverPit Demo\CloverPit_Data\Managed\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   
