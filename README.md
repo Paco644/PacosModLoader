@@ -17,16 +17,6 @@ The Pacos Mod Manager is a lightweight BepInEx plugin that helps you load and di
 
 ---
 
-## Disable / Configure Mods
-
-To disable mods go into the `PacosModManager.cfg` file at `BepInEx\config` and change the desired options.
-
-To configure mods you have to find the specific `.cfg` file in the `BepInEx\config` folder of the mod and change the desired settings.
-
-
-For now mods only update / start if you restart the game.
-
----
 
 ## For Developers: Integrate Your Mod
 
@@ -77,6 +67,8 @@ PacosModLoader.ModManagerPlugin.Instance?.UnregisterMod(this);
 After running the game with your mod and the manager, find config files in `BepInEx/config/`:
 - **Enable/Disable Mods:** `PacosModManager.cfg` and change `[ModStates]` entries.
 - **Adjust Mod Values:** Open your mod's specific config file to change its settings.
+
+For now mods only update / start if you restart the game.
 
 
 ### Examples
