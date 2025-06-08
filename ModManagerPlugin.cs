@@ -2,7 +2,9 @@
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
+using PacosModLoader.Features.EndlessMode.Patches;
 using PacosModLoader.interfaces;
+using PacosModLoader.Patches;
 using Panik;
 using System.Collections.Generic;
 using System.IO;
@@ -14,10 +16,16 @@ namespace PacosModLoader;
 public class ModManagerPlugin : BaseUnityPlugin
 {
     public static ModManagerPlugin Instance { get; private set; }
-    internal static new ManualLogSource Log;
-    private List<IModManagerMod> _registeredMods = [];
+    internal static ManualLogSource Log;
+    private readonly List<IModManagerMod> _registeredMods = [];
     private ConfigFile _modManagerGlobalConfig;
+    private ConfigEntry<bool> _enableEndlessMode;
     private Harmony _harmony;
+
+    public ConfigFile GetGlobalConfigFile()
+    {
+        return _modManagerGlobalConfig;
+    }
 
     void Awake()
     {
@@ -26,11 +34,14 @@ public class ModManagerPlugin : BaseUnityPlugin
         Log.LogInfo("Mod Manager loaded!");
         _modManagerGlobalConfig = new ConfigFile(Path.Combine(Paths.ConfigPath, "PacosModManager.cfg"), true);
 
+        DoGamePatches();
+    }
+
+    private void DoGamePatches()
+    {
         _harmony = new Harmony("aaaPacosModManager");
-
-        _harmony.PatchAll(typeof(PacosModLoader.Patches.GeneralUiScriptStartPatch));
-        Log.LogInfo("Mod Manager: Applied game patches.");
-
+        _harmony.PatchAll(typeof(GeneralUiScriptStartPatch));
+        Log.LogInfo("Game patches applied successfully.");
     }
 
     public void RegisterMod(IModManagerMod mod)
@@ -42,6 +53,12 @@ public class ModManagerPlugin : BaseUnityPlugin
 
             ConfigEntry<bool> modActiveEntry = _modManagerGlobalConfig.Bind("ModStates", mod.ModName, true, $"Is mod '{mod.ModName}' active?");
             mod.SetActive(modActiveEntry.Value);
+
+            modActiveEntry.SettingChanged += (sender, args) =>
+            {
+                mod.SetActive(modActiveEntry.Value);
+                Logger.LogInfo($"Mod '{mod.ModName}' active state updated to {modActiveEntry.Value} from config change.");
+            };
         }
     }
 
@@ -59,16 +76,4 @@ public class ModManagerPlugin : BaseUnityPlugin
         return [.. _registeredMods];
     }
 
-    public void SetModActive(IModManagerMod mod, bool isActive)
-    {
-        if (_registeredMods.Contains(mod))
-        {
-            mod.SetActive(isActive);
-            Logger.LogInfo($"Mod '{mod.ModName}' active state set to {isActive}.");
-
-            ConfigEntry<bool> modActiveEntry = _modManagerGlobalConfig.Bind("ModStates", mod.ModName, isActive, $"Is mod '{mod.ModName}' active?");
-            modActiveEntry.Value = isActive;
-            _modManagerGlobalConfig.Save();
-        }
-    }
 }
